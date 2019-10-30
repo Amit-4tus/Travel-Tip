@@ -23,8 +23,6 @@ window.onload = () => {
             elErrContainer.innerText = `Oops, we could not load the map. Error: ${err.message}`;
         });
 
-    const elErrContainer = document.querySelector('.err-container');
-
     locService.getPosition()
         .then(pos => {
             elErrContainer.classList.add('visibility-hidden');
@@ -34,7 +32,6 @@ window.onload = () => {
                 mapService.panTo(userLat, userLng)
                 locService.getLocs(userLat, userLng)
                     .then(locs => document.querySelector('.curr-loc-desc').innerText = locs)
-                mapService.panTo(posCoords.latitude, posCoords.longitude)
                 weatherService.getData(`http://api.openweathermap.org/data/2.5/weather?lat=${posCoords.latitude}&lon=${posCoords.longitude}&APPID=7e24799a8597cc7161903936f5c2dabc&units=metric`, renderWeather);
             }
         })
