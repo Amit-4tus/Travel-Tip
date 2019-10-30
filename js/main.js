@@ -20,6 +20,10 @@ window.onload = () => {
     locService.getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords);
+            const posCoords = pos.coords;
+            document.querySelector('.my-loc-btn').onclick = () => {
+                mapService.panTo(posCoords.latitude, posCoords.longitude)
+            }
         })
         .catch(err => {
             console.log('err!!!', err);
