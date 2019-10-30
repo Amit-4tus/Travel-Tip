@@ -19,6 +19,7 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
+            console.log('pos', pos);
             elErrContainer.classList.add('visibility-hidden');
             const posCoords = pos.coords;
             document.querySelector('.my-loc-btn').onclick = () => {
@@ -27,7 +28,6 @@ window.onload = () => {
             }
         })
         .catch(err => {
-            console.log('err', err);
             document.querySelector('.my-loc-btn').onclick = () => {
                 elErrContainer.classList.remove('visibility-hidden');
                 elErrContainer.innerText = `Oops, we could not find your location. Error: ${err.message}`;
