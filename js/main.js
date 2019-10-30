@@ -4,7 +4,6 @@ import locService from './services/loc.service.js'
 import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
-weatherService.getData('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&APPID=7e24799a8597cc7161903936f5c2dabc&units=metric', renderWeather);
 
 locService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -16,7 +15,7 @@ window.onload = () => {
         })
         .catch(console.log('INIT MAP ERROR'));
 
-    const elErrContainer = document.querySelector('.err-container');    
+    const elErrContainer = document.querySelector('.err-container');
 
     locService.getPosition()
         .then(pos => {
@@ -24,6 +23,7 @@ window.onload = () => {
             const posCoords = pos.coords;
             document.querySelector('.my-loc-btn').onclick = () => {
                 mapService.panTo(posCoords.latitude, posCoords.longitude)
+                weatherService.getData(`http://api.openweathermap.org/data/2.5/weather?lat=${posCoords.latitude}&lon=${posCoords.longitude}&APPID=7e24799a8597cc7161903936f5c2dabc&units=metric`, renderWeather);
             }
         })
         .catch(err => {
@@ -41,11 +41,17 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 function renderWeather(data) {
+    let name = data.name;
     let temp = data.main.temp;
-    let iconScr = `http://openweathermap.org/img/wn/${data.weather[0].icon}10d@2x.png`;
-    document.querySelector('.weather').innerHTML += `
-    <img class="temp" src="${iconScr}">
-    <span class="temp">${temp}</span>
+    let iconScr = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    let description = data.weather[0].description;
+    let windSpeed = data.wind.speed;
+    document.querySelector('.weather-info').innerHTML = `
+    <img class="icon" src="${iconScr}">
+    <span class="name">${name}:</span>
+    <span class="description">${description}</span>
+    <span class="temp">Temperature: ${temp}°C</span>
+    <span class="wind">Wind Speed: ${windSpeed}M/s</span>
     `;
     console.log(data);
 }
