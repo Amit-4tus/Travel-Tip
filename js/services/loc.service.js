@@ -4,13 +4,14 @@ export default {
     getPosition
 }
 
-var locs = [{ lat: 11.22, lng: 22.11 }]
+// var locs = [{ lat: 11.22, lng: 22.11 }]
 
-function getLocs() {
+function getLocs(lat, lng) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(locs);
-        }, 2000)
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCw8djD1Hif_FagSIHuaLdcPXB-KgWGiiw`)
+            .then(res => {
+                resolve(res);
+            })
     });
 
 }

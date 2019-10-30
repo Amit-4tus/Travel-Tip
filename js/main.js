@@ -1,30 +1,39 @@
-console.log('Main!');
 
 import locService from './services/loc.service.js'
 import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
 
-locService.getLocs()
-    .then(locs => console.log('locs', locs))
+// locService.getLocs()
+//     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
+    const elErrContainer = document.querySelector('.err-container');    
+
     mapService.initMap()
         .then(() => {
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+            elErrContainer.classList.add('visibility-hidden');
+            // document.querySelector('.search-loc-btn').onclick = () => {
+            //     const searchVal = document.querySelector('.search-loc-input').value;
+                
+            // };
         })
-        .catch(console.log('INIT MAP ERROR'));
-
-    const elErrContainer = document.querySelector('.err-container');
+        .catch(err => {
+            elErrContainer.classList.remove('visibility-hidden');
+            elErrContainer.innerText = `Oops, we could not load the map. Error: ${err.message}`;
+        });
 
     locService.getPosition()
         .then(pos => {
-            console.log('pos', pos);
             elErrContainer.classList.add('visibility-hidden');
-            const posCoords = pos.coords;
+            const userLat = pos.coords.latitude;
+            const userLng = pos.coords.longitude;
             document.querySelector('.my-loc-btn').onclick = () => {
-                mapService.panTo(posCoords.latitude, posCoords.longitude)
-                weatherService.getWeather(posCoords.latitude, posCoords.longitude, renderWeather);
+                mapService.panTo(userLat, userLng)
+                locService.getLocs(userLat, userLng)
+                    .then(locs => document.querySelector('.curr-loc-desc').innerText = locs)
+                mapService.panTo(userLat, userLng)
+                weatherService.getWeather(userLat, userLng, renderWeather);
             }
         })
         .catch(err => {
@@ -35,10 +44,10 @@ window.onload = () => {
         })
 }
 
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    // console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
-})
+// document.querySelector('.btn').addEventListener('click', (ev) => {
+//     console.log('Aha!', ev.target);
+//     mapService.panTo(35.6895, 139.6917);
+// })
 
 function renderWeather(data) {
     let name = data.name;
