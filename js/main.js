@@ -32,7 +32,8 @@ window.onload = () => {
                 mapService.panTo(userLat, userLng)
                 locService.getLocs(userLat, userLng)
                     .then(locs => document.querySelector('.curr-loc-desc').innerText = locs)
-                weatherService.getData(`http://api.openweathermap.org/data/2.5/weather?lat=${posCoords.latitude}&lon=${posCoords.longitude}&APPID=7e24799a8597cc7161903936f5c2dabc&units=metric`, renderWeather);
+                mapService.panTo(userLat, userLng)
+                weatherService.getWeather(userLat, userLng, renderWeather);
             }
         })
         .catch(err => {
