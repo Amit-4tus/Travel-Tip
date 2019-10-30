@@ -13,10 +13,10 @@ window.onload = () => {
     mapService.initMap()
         .then(() => {
             elErrContainer.classList.add('visibility-hidden');
-            // document.querySelector('.search-loc-btn').onclick = () => {
-            //     const searchVal = document.querySelector('.search-loc-input').value;
-                
-            // };
+            document.querySelector('.search-loc-btn').onclick = () => {
+                const searchVal = document.querySelector('.search-loc-input').value;
+                getLocs();
+            };
         })
         .catch(err => {
             elErrContainer.classList.remove('visibility-hidden');
@@ -43,11 +43,6 @@ window.onload = () => {
             }
         })
 }
-
-// document.querySelector('.btn').addEventListener('click', (ev) => {
-//     console.log('Aha!', ev.target);
-//     mapService.panTo(35.6895, 139.6917);
-// })
 
 function renderWeather(data) {
     let name = data.name;
