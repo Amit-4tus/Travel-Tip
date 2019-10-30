@@ -32,9 +32,9 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 
 function renderWeather(data) {
     let temp = data.main.temp;
-    let icon = data.weather[0].icon;
+    let iconScr = `http://openweathermap.org/img/wn/${data.weather[0].icon}10d@2x.png`;
     document.querySelector('.weather').innerHTML += `
-    <span class="temp">${icon}</span>
+    <img class="temp" src="${iconScr}">
     <span class="temp">${temp}</span>
     `;
     console.log(data);
