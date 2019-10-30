@@ -32,6 +32,7 @@ window.onload = () => {
                 mapService.panTo(userLat, userLng)
                 locService.getLocs(userLat, userLng)
                     .then(locs => document.querySelector('.curr-loc-desc').innerText = locs)
+                    
                 mapService.panTo(userLat, userLng)
                 weatherService.getWeather(userLat, userLng, renderWeather);
             }
