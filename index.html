@@ -7,8 +7,26 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <h1>ES6</h1>
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    <h1 class="logo">TravelTip</h1>
+    <section class="nav flex space-between align-center">
+        <div class="search-loc">
+            <input type="text" placeholder="Enter Location"/>
+            <button class="search-loc-btn">GO</button>
+        </div>
+        <button class="my-loc-btn">My Location</button>
+    </section>
+    <div class="user-loc flex space-around align-center">
+        <div class="loc-desc">
+            Location: <span class="curr-loc-desc"></span>
+        </div>
+        <button>Copy Location</button>
+    </div>
+    <main class="flex space-between align-center">
+        <div class="weather text-center">
+            <h2>Weather Today:</h2>
+        </div>
+        <div id="map" style="width: 100%; height: 400px;"></div>
+    </main>
     <button class="btn">Click Me</button>
     
     <script type="module" src="js/main.js"></script>
