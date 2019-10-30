@@ -10,16 +10,18 @@
     <h1 class="logo">TravelTip</h1>
     <section class="nav flex space-between align-center">
         <div class="search-loc">
-            <input type="text" placeholder="Enter Location"/>
+            <input type="text" placeholder="Enter Location" class="search-loc-input"/>
             <button class="search-loc-btn">GO</button>
         </div>
         <button class="my-loc-btn">My Location</button>
     </section>
+    <div class="err-container flex justify-center align-center visibility-hidden"></div>
     <div class="user-loc flex space-around align-center">
         <div class="loc-desc">
             Location: <span class="curr-loc-desc"></span>
         </div>
         <button>Copy Location</button>
+        <button class="btn">Click Me</button>
     </div>
     <main class="flex space-between align-center">
         <div class="weather text-center">
@@ -27,7 +29,6 @@
         </div>
         <div id="map" style="width: 100%; height: 400px;"></div>
     </main>
-    <button class="btn">Click Me</button>
     
     <script type="module" src="js/main.js"></script>
 </body>

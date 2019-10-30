@@ -27,7 +27,7 @@ function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
         map: map,
-        title: 'Hello World!'
+        title: 'Hello World!' //TO DO: change title **********
     });
     return marker;
 }
@@ -35,6 +35,7 @@ function addMarker(loc) {
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
     map.panTo(laLatLng);
+    addMarker({lat, lng})
 }
 
 function _connectGoogleApi() {
