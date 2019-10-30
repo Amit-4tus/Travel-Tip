@@ -12,7 +12,6 @@ var map;
 export function initMap(lat = 32.0749831, lng = 34.9120554) {
     return _connectGoogleApi()
         .then(() => {
-            console.log('google available');
             map = new google.maps.Map(
                 document.querySelector('#map'), {
                 center: { lat, lng },
