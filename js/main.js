@@ -16,17 +16,22 @@ window.onload = () => {
         })
         .catch(console.log('INIT MAP ERROR'));
 
+    const elErrContainer = document.querySelector('.err-container');    
 
     locService.getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords);
+            elErrContainer.classList.add('visibility-hidden');
             const posCoords = pos.coords;
             document.querySelector('.my-loc-btn').onclick = () => {
                 mapService.panTo(posCoords.latitude, posCoords.longitude)
             }
         })
         .catch(err => {
-            console.log('err!!!', err);
+            console.log('err', err);
+            document.querySelector('.my-loc-btn').onclick = () => {
+                elErrContainer.classList.remove('visibility-hidden');
+                elErrContainer.innerText = `Oops, we could not find your location. Error: ${err.message}`;
+            }
         })
 }
 
