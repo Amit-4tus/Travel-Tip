@@ -22,11 +22,6 @@ h1 {
     margin: 0 auto 8px;
 }
 
-.loc-desc {
-    font-size: 20px;
-    font-weight: bold;
-}
-
 .weather, #map {
     height: 300px;
     margin: 0 15px;
@@ -44,6 +39,18 @@ h1 {
     font-size: 14px;
     height: 17px;
 }
+
+.loc-desc {
+    font-size: 20px;
+    font-weight: bold;
+    width: 500px;
+}
+
+.curr-loc-desc {
+    font-size: 18px;
+    font-weight: normal;
+}
+
 
 
 /* helpers */
