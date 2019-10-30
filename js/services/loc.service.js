@@ -1,10 +1,21 @@
-
 export default {
     getLocs,
-    getPosition
+    getPosition,
+    getLocByName
 }
 
 // var locs = [{ lat: 11.22, lng: 22.11 }]
+
+function getLocByName(name) {
+    if(!name) return Promise.reject('Please Enter a Place')
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=AIzaSyCw8djD1Hif_FagSIHuaLdcPXB-KgWGiiw`)
+        .then(res => {
+            return res.data.results[0].geometry.location
+        })
+        .catch(() => {
+            throw 'Please Enter A Valid Place'
+        })
+}
 
 function getLocs(lat, lng) {
     return new Promise((resolve) => {
@@ -14,12 +25,9 @@ function getLocs(lat, lng) {
                 resolve(locName);
             })
     });
-
 }
 
-
 function getPosition() {
-
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })

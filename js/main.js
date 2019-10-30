@@ -8,14 +8,19 @@ import weatherService from './services/weather.service.js'
 //     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
-    const elErrContainer = document.querySelector('.err-container');    
+    const elErrContainer = document.querySelector('.err-container');
 
     mapService.initMap()
         .then(() => {
             elErrContainer.classList.add('visibility-hidden');
             document.querySelector('.search-loc-btn').onclick = () => {
                 const searchVal = document.querySelector('.search-loc-input').value;
-                getLocs();
+                locService.getLocByName(searchVal)
+                    .then(coords => doMap(coords.lat, coords.lng))
+                    .catch((errMsg) => {
+                        elErrContainer.innerText = errMsg;
+                        elErrContainer.classList.remove('visibility-hidden');
+                    })
             };
         })
         .catch(err => {
@@ -29,12 +34,7 @@ window.onload = () => {
             const userLat = pos.coords.latitude;
             const userLng = pos.coords.longitude;
             document.querySelector('.my-loc-btn').onclick = () => {
-                mapService.panTo(userLat, userLng)
-                locService.getLocs(userLat, userLng)
-                    .then(locs => document.querySelector('.curr-loc-desc').innerText = locs)
-                    
-                mapService.panTo(userLat, userLng)
-                weatherService.getWeather(userLat, userLng, renderWeather);
+                doMap(userLat, userLng);
             }
         })
         .catch(err => {
@@ -58,5 +58,14 @@ function renderWeather(data) {
     <span class="temp">Temperature: ${temp}°C</span>
     <span class="wind">Wind Speed: ${windSpeed}M/s</span>
     `;
-    console.log(data);
+}
+
+function doMap(lat, lon) {
+    document.querySelector('.err-container').classList.add('visibility-hidden');
+    mapService.panTo(lat, lon);
+    locService.getLocs(lat, lon)
+        .then(locs => document.querySelector('.curr-loc-desc').innerText = locs);
+
+    mapService.panTo(lat, lon);
+    weatherService.getWeather(lat, lon, renderWeather);
 }
