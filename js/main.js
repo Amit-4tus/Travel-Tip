@@ -24,7 +24,7 @@ window.onload = () => {
             const posCoords = pos.coords;
             document.querySelector('.my-loc-btn').onclick = () => {
                 mapService.panTo(posCoords.latitude, posCoords.longitude)
-                weatherService.getData(`http://api.openweathermap.org/data/2.5/weather?lat=${posCoords.latitude}&lon=${posCoords.longitude}&APPID=7e24799a8597cc7161903936f5c2dabc&units=metric`, renderWeather);
+                weatherService.getWeather(posCoords.latitude, posCoords.longitude, renderWeather);
             }
         })
         .catch(err => {
@@ -36,7 +36,7 @@ window.onload = () => {
 }
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
+    // console.log('Aha!', ev.target);
     mapService.panTo(35.6895, 139.6917);
 })
 
